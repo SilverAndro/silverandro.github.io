@@ -5,3 +5,10 @@ a:link, a:visited {
 a:active {
     color: red;
 }
+
+/* Disable the link coloring if the user has custom colors setup */
+@media screen and (prefers-contrast:more) or (prefers-contrast:custom) {
+    a:link, a:visited {
+        color: revert;
+    }
+}
