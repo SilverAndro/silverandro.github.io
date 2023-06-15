@@ -13,6 +13,10 @@ p {
     overflow-wrap: normal;
 }
 
+.nowrap {
+    white-space: nowrap;
+}
+
 .showcase {
     display: flex;
     justify-content: center;
@@ -42,9 +46,12 @@ p {
 }
 
 #profile_picture {
-    border: 7px solid black;
+    border: 6px solid black;
     border-radius: 50%;
     margin: 10px 30px 10px 10px;
+
+    max-width: 100%
+    height: auto;
 }
 
 #bio {
@@ -54,4 +61,20 @@ p {
 
     display: flex;
     align-items: center;
+}
+
+@media screen and (max-width: 530px) {
+    .showcase {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 35px;
+    }
+
+    #profile_picture {
+        width: 150px;
+    }
 }
