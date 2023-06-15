@@ -50,7 +50,7 @@ p {
     border-radius: 50%;
     margin: 10px 30px 10px 10px;
 
-    max-width: 100%
+    max-width: 100%;
     height: auto;
 }
 
@@ -63,6 +63,14 @@ p {
     align-items: center;
 }
 
+/* Shrink the picture to recover a few characters of space */
+@media screen and (max-width: 700px) {
+    #profile_picture {
+        width: 160px;
+    }
+}
+
+/* Shift to mobile layout */
 @media screen and (max-width: 530px) {
     .showcase {
         flex-direction: column;
@@ -75,6 +83,10 @@ p {
     }
 
     #profile_picture {
-        width: 150px;
+        width: 130px;
+    }
+
+    #bio {
+        width: 80%;
     }
 }
