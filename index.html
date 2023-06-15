@@ -3,6 +3,8 @@
 <head>
     <title>Silver's Silly Little Website</title>
 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
     <meta property="og:title" content="Silver's Silly Little Website" />
     <meta property="og:url" content="https://www.silverandro.dev" />
     <meta property="og:image" content="https://www.silverandro.dev/site_image.png" />
@@ -12,16 +14,39 @@
     <meta name="theme-color" content="#B00B69">
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Fonts: Lato and Jetbrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&family=Lato&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/main.css" />
 </head>
 <body>
 
-<h1>Hello world!</h1>
-<p>
-    I don't have anything here atm, eventually there will be a maven at
-    <a href="https://maven.silverandro.dev">maven.silverandro.dev</a> though.
-    <br/>
-    Idk, might make a blog or something, ill probably just use this for static
-    data and file hosting though.
-</p>
+<div id="opening">
+    <h1>welcome to my page! 💕🏳️‍⚧️</h1>
+    <div class="showcase">
+        <div>
+            <img id="profile_picture"
+                    src="https://avatars.githubusercontent.com/SilverAndro"
+                    alt="Silver's profile picture"
+                    height="200"
+                    width="200"
+            >
+        </div>
+        <div id="bio">
+            <article>
+                hi there! im silver, im a kotlin/jvm programmer who mostly makes minecraft mods.
+                <br/>
+                i dont have much here right now, eventually there will be a maven at
+                <a href="https://maven.silverandro.dev">maven.silverandro.dev</a> though,
+                and eventually ill figure out blogging and stuff.
+                <br/><br/>
+                you can find me on discord at <div class="inline_code">mrs.silver.andro</div>, if i have DMs or
+                friend requests disabled, feel free to join my discord at <div class="inline_code">PZAunp345q</div>.
+            </article>
+        </div>
+    </div>
+</div>
 </body>
-</html>
