@@ -19,6 +19,7 @@ jobs:
           distribution: temurin
           java-version: 11
 
+      - run: chmod +x ./gradlew
       - name: Build the assembler and create the site
         uses: gradle/gradle-build-action@v2
         with:
