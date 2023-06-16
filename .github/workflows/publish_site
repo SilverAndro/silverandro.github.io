@@ -12,12 +12,16 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-        
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
 
-      - name: Run the assembler
-        run: ./gradlew build
+      - uses: actions/setup-java@v3
+            with:
+              distribution: temurin
+              java-version: 11
+
+      - name: Build the assembler and create the site
+        uses: gradle/gradle-build-action@v2
+            with:
+                arguments: build assembleSite
         
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v1.0.8
@@ -25,4 +29,4 @@ jobs:
       - name: Deploy GitHub Pages site
         uses: actions/deploy-pages@v2.0.2
         with:
-          path: /build/web_output
+          path: ./web_output
