@@ -1,5 +1,7 @@
 name: Publish Site
 
+permissions: read-all|write-all
+
 on:
   push:
     branches: [ "master" ]
