@@ -3,6 +3,7 @@ package dev.silverandro.website.pages
 import dev.silverandro.website.Page
 import dev.silverandro.website.StyleSheet
 import dev.silverandro.website.components._a
+import dev.silverandro.website.components.email
 import dev.silverandro.website.components.inlineCode
 import kotlinx.html.BODY
 import kotlinx.html.li
@@ -24,6 +25,7 @@ object AboutMePage : Page() {
             li { +"Discord Server: "; inlineCode { +"PZAunp345q" } }
             li { +"Modrinth: "; _a("https://modrinth.com/user/SilverAndro") }
             li { +"Curseforge: "; _a("https://curseforge.com/members/silverthelesbian/projects") }
+            li { +"Email: "; email("NiAndromedae@proton.me")}
         }
     }
 

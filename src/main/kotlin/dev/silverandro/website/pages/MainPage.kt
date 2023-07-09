@@ -28,8 +28,7 @@ object MainPage : Page() {
                 article {
                     +"hi there! im silver [it/she], im a kotlin/jvm programmer who mostly makes minecraft mods for quilt."
                     br
-                    +"i dont have much here right now, eventually there will be a maven at "; _a("https://maven.silverandro.dev")
-                    +" though, and eventually ill figure out blogging and stuff."
+                    +"i dont have much here right now, eventually ill figure out blogging and stuff."
                     br; br
                     +"if i have friend requests or dms disabled on discord, feel free to join my sever and request to dm from there."
                     br
