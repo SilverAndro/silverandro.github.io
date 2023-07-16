@@ -12,6 +12,21 @@ object CommonStyle : StyleSheet() {
                 font-family: 'Lato', sans-serif;
             }
 
+            a:link, a:visited {
+                color: #3FBFBF;
+            }
+
+            a:active {
+                color: red;
+            }
+
+            /* Disable the link coloring if the user has custom colors setup */
+            @media screen and (prefers-contrast:more) or (prefers-contrast:custom) {
+                a:link, a:visited {
+                    color: revert;
+                }
+            }
+
             body {
                 height: auto;
                 margin: 0 0 0 0;
@@ -26,7 +41,7 @@ object CommonStyle : StyleSheet() {
             
             hr {
                 width: 90%;
-                margin: 10px 0px 10px 0px;
+                margin: 10px 0 10px;
             }
 
             .inline_code {

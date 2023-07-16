@@ -5,7 +5,6 @@ import dev.silverandro.website.pages.AboutMePage
 import dev.silverandro.website.pages.MainPage
 import dev.silverandro.website.pages.blog.BlogPost
 import dev.silverandro.website.style.CommonStyle
-import dev.silverandro.website.style.LinksStyle
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 import java.nio.file.Files
@@ -18,7 +17,6 @@ fun main(args: Array<String>) {
 
     val allStyleSheets = arrayOf(
         CommonStyle,
-        LinksStyle,
         MainPage.Style,
         AboutMePage.Style,
         BlogPost.Style
@@ -60,8 +58,19 @@ fun main(args: Array<String>) {
         println("Creating css file ${it.name}.css")
         output.parentFile.mkdirs()
         output.createNewFile()
+
+        val sheet = it.getStyleSheet()
+        val minimized = sheet.lines()
+            .filter { it.isNotBlank() }
+            .joinToString(separator = "")
+            .replace("  ", "")
+            .replace(": ", ":")
+            .replace(") ", ")")
+            .replace(" {", "{")
+            .replace(", ", ",")
+            .replace("/\\*.+?\\*/".toRegex(), "")
         output.outputStream().bufferedWriter().use { writer ->
-            writer.write(it.getStyleSheet())
+            writer.write(if (debug) sheet else minimized)
         }
     }
 

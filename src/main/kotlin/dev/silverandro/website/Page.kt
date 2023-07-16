@@ -1,7 +1,6 @@
 package dev.silverandro.website
 
 import dev.silverandro.website.style.CommonStyle
-import dev.silverandro.website.style.LinksStyle
 import kotlinx.html.BODY
 import kotlinx.html.HEAD
 
@@ -11,9 +10,8 @@ abstract class Page {
     open val description = "Silver's silly site, full of awful web design and a maven"
 
     open fun styleSheets(): List<StyleSheet> {
-        return mutableListOf(
-            CommonStyle,
-            LinksStyle
+        return mutableListOf<StyleSheet>(
+            CommonStyle
         ).also { it.addAll(additionalStyleSheets()) }
     }
     open fun additionalStyleSheets(): List<StyleSheet> = emptyList()
