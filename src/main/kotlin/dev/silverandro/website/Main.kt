@@ -3,6 +3,7 @@ package dev.silverandro.website
 import dev.silverandro.website.components.metaProperty
 import dev.silverandro.website.pages.AboutMePage
 import dev.silverandro.website.pages.MainPage
+import dev.silverandro.website.pages.blog.BlogPost
 import dev.silverandro.website.style.CommonStyle
 import dev.silverandro.website.style.LinksStyle
 import kotlinx.html.*
@@ -20,22 +21,44 @@ fun main(args: Array<String>) {
         LinksStyle,
         MainPage.Style,
         AboutMePage.Style,
+        BlogPost.Style
     )
 
     val pages = arrayOf(
+        // Main Pages
         MainPage,
         AboutMePage,
+
+        // Blog Posts
+        //IntroToOW2Asm
+    )
+
+    val resources = mapOf(
+        "favicon.ico" to "favicon.ico",
+        "highlight.min.js" to "script/highlight.js",
+        "tomorrow.min.css" to "style/code_tomorrow.css"
     )
 
     val root = Path("web_output/").absolute()
     root.toFile().mkdirs()
 
-    Files.copy(Path("favicon.ico"), root.resolve("favicon.ico"), StandardCopyOption.REPLACE_EXISTING)
+    resources.forEach { (resource, target) ->
+        val stream = MainPage.javaClass.getResourceAsStream("/$resource")
+        require(stream != null) { "Failed to locate raw resource $resource" }
+
+        val targetFile = root.resolve(target)
+        targetFile.parent.toFile().mkdirs()
+
+        println("Copying raw resource $resource to $target")
+        Files.copy(stream, root.resolve(target), StandardCopyOption.REPLACE_EXISTING)
+        stream.close()
+    }
 
     root.resolve("style").toFile().mkdirs()
     allStyleSheets.forEach {
         val output = root.resolve("style/${it.name}.css").toFile()
         println("Creating css file ${it.name}.css")
+        output.parentFile.mkdirs()
         output.createNewFile()
         output.outputStream().bufferedWriter().use { writer ->
             writer.write(it.getStyleSheet())
@@ -45,6 +68,7 @@ fun main(args: Array<String>) {
     pages.forEach {
         val pagePath = it.path.removePrefix("/")
         val output = root.resolve("${pagePath}.html").toFile()
+        output.parentFile.mkdirs()
         println("Creating html file ${pagePath}.html")
         output.createNewFile()
 
@@ -64,6 +88,7 @@ fun main(args: Array<String>) {
                 metaProperty("og:url", "https://www.silverandro.dev/$pagePath")
                 metaProperty("og:image", "https://www.silverandro.dev/site_image.png")
                 metaProperty("og:description", it.description)
+                meta("description", it.description)
                 meta("theme-color", "#BF3FBF")
 
                 // Favicon
@@ -86,13 +111,11 @@ fun main(args: Array<String>) {
                 methods.find { it.name == "head" }!!.invoke(it, this)
             }
 
-            methods.find { it.name == "preBody" }!!.invoke(it, this)
-
             body {
+                methods.find { it.name == "preBody" }!!.invoke(it, this)
                 methods.find { it.name == "body" }!!.invoke(it, this)
+                methods.find { it.name == "postBody" }!!.invoke(it, this)
             }
-
-            methods.find { it.name == "postBody" }!!.invoke(it, this)
         }
 
         output.outputStream().bufferedWriter().use { writer ->

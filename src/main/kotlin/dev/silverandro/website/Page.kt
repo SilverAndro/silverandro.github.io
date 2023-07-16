@@ -4,7 +4,6 @@ import dev.silverandro.website.style.CommonStyle
 import dev.silverandro.website.style.LinksStyle
 import kotlinx.html.BODY
 import kotlinx.html.HEAD
-import kotlinx.html.HTML
 
 abstract class Page {
     abstract val path: String
@@ -19,7 +18,7 @@ abstract class Page {
     }
     open fun additionalStyleSheets(): List<StyleSheet> = emptyList()
     open fun HEAD.head() {}
-    open fun HTML.preBody() {}
+    open fun BODY.preBody() {}
     abstract fun BODY.body()
-    open fun HTML.postBody() {}
+    open fun BODY.postBody() {}
 }

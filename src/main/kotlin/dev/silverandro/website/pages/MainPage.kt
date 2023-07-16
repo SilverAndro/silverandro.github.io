@@ -3,12 +3,15 @@ package dev.silverandro.website.pages
 import dev.silverandro.website.Page
 import dev.silverandro.website.StyleSheet
 import dev.silverandro.website.components._a
+import dev.silverandro.website.components.inlineCode
 import dev.silverandro.website.components.noWrap
+import dev.silverandro.website.pages.blog.BlogPost
 import dev.silverandro.website.util.px
+import dev.silverandro.website.util.ymdString
 import kotlinx.html.*
 
 object MainPage : Page() {
-    override val path = "/index"
+    override val path = "index"
 
     override fun additionalStyleSheets(): List<StyleSheet> {
         return listOf(Style)
@@ -19,21 +22,30 @@ object MainPage : Page() {
             h1 { +"welcome to my page! "; noWrap { +"\uD83D\uDC95\uD83C\uDFF3\uFE0F\u200D⚧\uFE0F" } }
         }
         div("showcase") {
-            div { img("Silver's profile picture", "https://avatars.githubusercontent.com/SilverAndro") {
+            div { img("Silver's profile picture", "https://avatars.githubusercontent.com/SilverAndro?size=200") {
                 id = "profile_picture"
                 width = 200.px
+                height = 200.px
             } }
             div {
                 id = "bio"
                 article {
                     +"hi there! im silver [it/she], im a kotlin/jvm programmer who mostly makes minecraft mods for quilt."
                     br
-                    +"i dont have much here right now, eventually ill figure out blogging and stuff."
+                    +"i dont have much here right now other than my blog though."
                     br; br
                     +"if i have friend requests or dms disabled on discord, feel free to join my sever and request to dm from there."
                     br
                     +"check out "; _a("/about", "my about page"); +" for more info about me and contact info."
                 }
+            }
+        }
+        hr {  }
+        h2 { +"blog entries:" }
+        div {
+            id = "blog-list"
+            ul {
+                //blogEntry(IntroToOW2Asm)
             }
         }
     }
@@ -43,13 +55,6 @@ object MainPage : Page() {
 
         override fun getStyleSheet(): String {
             return """
-                body {
-                    height: 100vh;
-                    margin: 0 0 0 0;
-                    border: solid #BF3FBF;
-                    border-width: 0 0 0 30px;
-                }
-
                 h1 {
                     margin: 0 2px 2px 2px;
                     font-size: 40px;
@@ -115,6 +120,18 @@ object MainPage : Page() {
                     }
                 }
             """.trimIndent()
+        }
+    }
+
+    private fun UL.blogEntry(post: BlogPost) {
+        li {
+            _a("/" + post.path.removePrefix("/"), post.title)
+            +" - published "
+            inlineCode { +post.publishDate.ymdString }
+            if (post.updateDate != null) {
+                +", updated "
+                inlineCode { +post.updateDate!!.ymdString }
+            }
         }
     }
 }

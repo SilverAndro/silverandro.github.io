@@ -12,8 +12,21 @@ object CommonStyle : StyleSheet() {
                 font-family: 'Lato', sans-serif;
             }
 
+            body {
+                height: auto;
+                margin: 0 0 0 0;
+                border: solid #BF3FBF;
+                border-width: 0 0 0 30px;
+                padding: 0 0 15px 30px;
+            }
+
             p {
                 overflow-wrap: normal;
+            }
+            
+            hr {
+                width: 90%;
+                margin: 10px 0px 10px 0px;
             }
 
             .inline_code {
@@ -27,19 +40,30 @@ object CommonStyle : StyleSheet() {
             }
 
             .code {
+                font-family: 'JetBrains Mono', monospace;
                 font-size: 14px;
                 line-height: 1.3;
+                tab-size: 4;
 
-                padding: 10px 20px 20px 20px;
-                background-color: #EFEFEF;
-                border: 5px solid #9E9E9E;
+                padding: 8px 10px 8px;
+                width: fit-content;
+                min-width: 45%;
+                max-width: 100%;
+                overflow-x: scroll;
+                
+                border: 5px solid #B9B5BC;
                 border-radius: 8px;
-
-                font-family: 'JetBrains Mono', monospace;
             }
 
             .nowrap {
                 white-space: nowrap;
+            }
+            
+            /* Increase the amount of code on screen for better reading */
+            @media screen and (max-width: 700px) {
+                .code {
+                    font-size: 12px;
+                }
             }
         """.trimIndent()
     }
