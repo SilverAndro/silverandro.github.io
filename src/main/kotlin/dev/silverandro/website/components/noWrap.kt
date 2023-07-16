@@ -5,5 +5,5 @@ import kotlinx.html.SPAN
 import kotlinx.html.span
 
 fun FlowOrPhrasingContent.noWrap(block : SPAN.() -> Unit = {}) {
-    span("noWrap") { block() }
+    span("nowrap") { block() }
 }

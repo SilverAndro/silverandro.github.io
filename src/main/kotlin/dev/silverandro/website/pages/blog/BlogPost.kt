@@ -23,9 +23,8 @@ abstract class BlogPost(val slug: String, val needsCodeHighlighting: Boolean = f
             link("/style/code_tomorrow.css", "stylesheet")
             script(src = "/script/highlight.js") {
                 async = true
-                attributes["id"] = "hljs"
+                attributes["onload"] = "hljs.highlightAll()"
             }
-            script { unsafe { this.raw("setTimeout(function() {hljs.highlightAll();}, 10);") } }
         }
     }
 

@@ -4,6 +4,7 @@ import dev.silverandro.website.components.metaProperty
 import dev.silverandro.website.pages.AboutMePage
 import dev.silverandro.website.pages.MainPage
 import dev.silverandro.website.pages.blog.BlogPost
+import dev.silverandro.website.pages.blog.IntroToOW2Asm
 import dev.silverandro.website.style.CommonStyle
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
@@ -28,7 +29,7 @@ fun main(args: Array<String>) {
         AboutMePage,
 
         // Blog Posts
-        //IntroToOW2Asm
+        IntroToOW2Asm
     )
 
     val resources = mapOf(
@@ -108,7 +109,9 @@ fun main(args: Array<String>) {
                 link("https://fonts.gstatic.com", "preconnect") {
                     attributes["crossorigin"] = ""
                 }
-                link("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&family=Lato&display=swap", "stylesheet")
+                link("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&family=Lato&display=swap", "preload") {
+                    attributes["as"] = "style"
+                }
 
                 // CSS
                 it.styleSheets().forEach {

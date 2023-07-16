@@ -1,0 +1,16 @@
+LabelNode@378fd1ac
+LineNumberNode@49097b5d
+InsnNode@6e2c634b
+VarInsnNode@37a71e93
+LabelNode@7e6cbb7a
+LineNumberNode@7c3df479
+InsnNode@7106e68e
+VarInsnNode@7eda2dbb
+LabelNode@6576fe71
+LineNumberNode@76fb509a
+VarInsnNode@300ffa5d
+[..snip..]
+FrameNode@7a4f0f29
+VarInsnNode@45283ce2
+InsnNode@2077d4de
+LabelNode@7591083d

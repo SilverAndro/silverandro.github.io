@@ -1,0 +1,18 @@
+File file = new File("Calculator.class");
+FileInputStream inputStream = new FileInputStream(file);
+
+ClassReader reader = new ClassReader(inputStream);
+inputStream.close();
+
+ClassNode classNode = new ClassNode();
+reader.accept(classNode, 0);
+
+System.out.println("Class name: " + classNode.name);
+System.out.println("Class version: " + classNode.version);
+System.out.println("Class methods:");
+for (MethodNode method : classNode.methods) {
+    System.out.println("----------------");
+    System.out.println("Name: " + method.name);
+    System.out.println("Descriptor: " + method.desc);
+    System.out.println("Try-catch blocks: " + method.tryCatchBlocks.size());
+}

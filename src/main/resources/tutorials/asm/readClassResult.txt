@@ -1,0 +1,19 @@
+Class name: dev/silverandro/tutorial/Calculator
+Class version: 61
+Class methods:
+----------------
+Name: <init>
+Descriptor: ()V
+Try-catch blocks: 0
+----------------
+Name: main
+Descriptor: ([Ljava/lang/String;)V
+Try-catch blocks: 0
+----------------
+Name: calculateResult
+Descriptor: (Ljava/lang/String;)I
+Try-catch blocks: 0
+----------------
+Name: stringIsInteger
+Descriptor: (Ljava/lang/String;)Z
+Try-catch blocks: 1

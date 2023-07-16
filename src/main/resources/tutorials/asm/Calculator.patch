@@ -1,0 +1,22 @@
+         switch (currentOperation) {
+             case '\0' -> current = value;
+             case '+' -> current = current + value;
+             case '-' -> current = current - value;
+             case '/' -> current = current / value;
+             case '*' -> current = current * value;
+         }
++        currentOperation = '\0';
+     } else {
+         currentOperation = part.charAt(0);
+     }
+[..snip..]
+     private static boolean stringIsInteger(String str) {
+-        try {
+-            Integer.parseInt(str);
+-        } catch (NumberFormatException exception) {
+-            return false;
+-        }
+-        return true;
++        return str.matches("-?\\d+");
+     }
+ }

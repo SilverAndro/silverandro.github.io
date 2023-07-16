@@ -16,6 +16,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.4.0")
+
+    implementation("org.ow2.asm:asm:9.5")
+    implementation("org.ow2.asm:asm-tree:9.5")
 }
 
 application {

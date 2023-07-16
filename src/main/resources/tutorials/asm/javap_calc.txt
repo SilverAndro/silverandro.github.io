@@ -1,0 +1,116 @@
+Compiled from "Calculator.java"
+public class dev.silverandro.tutorial.Calculator {
+  public dev.silverandro.tutorial.Calculator();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: new           #7                  // class java/util/Scanner
+       3: dup
+       4: getstatic     #9                  // Field java/lang/System.in:Ljava/io/InputStream;
+       7: invokespecial #15                 // Method java/util/Scanner."<init>":(Ljava/io/InputStream;)V
+      10: astore_1
+      11: getstatic     #18                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      14: ldc           #22                 // String enter the calculation:
+      16: invokevirtual #24                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      19: aload_1
+      20: invokevirtual #30                 // Method java/util/Scanner.nextLine:()Ljava/lang/String;
+      23: astore_2
+      24: aload_2
+      25: invokestatic  #34                 // Method calculateResult:(Ljava/lang/String;)I
+      28: istore_3
+      29: getstatic     #18                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      32: iload_3
+      33: invokedynamic #40,  0             // InvokeDynamic #0:makeConcatWithConstants:(I)Ljava/lang/String;
+      38: invokevirtual #24                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+      41: return
+
+  private static int calculateResult(java.lang.String);
+    Code:
+       0: iconst_0
+       1: istore_1
+       2: iconst_0
+       3: istore_2
+       4: aload_0
+       5: ldc           #44                 // String
+       7: invokevirtual #46                 // Method java/lang/String.split:(Ljava/lang/String;)[Ljava/lang/String;
+      10: astore_3
+      11: aload_3
+      12: astore        4
+      14: aload         4
+      16: arraylength
+      17: istore        5
+      19: iconst_0
+      20: istore        6
+      22: iload         6
+      24: iload         5
+      26: if_icmpge     155
+      29: aload         4
+      31: iload         6
+      33: aaload
+      34: astore        7
+      36: aload         7
+      38: invokestatic  #52                 // Method stringIsInteger:(Ljava/lang/String;)Z
+      41: ifeq          142
+      44: aload         7
+      46: invokestatic  #56                 // Method java/lang/Integer.parseInt:(Ljava/lang/String;)I
+      49: istore        8
+      51: iload_2
+      52: lookupswitch  { // 5
+                     0: 104
+                    42: 134
+                    43: 110
+                    45: 118
+                    47: 126
+               default: 139
+          }
+     104: iload         8
+     106: istore_1
+     107: goto          139
+     110: iload_1
+     111: iload         8
+     113: iadd
+     114: istore_1
+     115: goto          139
+     118: iload_1
+     119: iload         8
+     121: isub
+     122: istore_1
+     123: goto          139
+     126: iload_1
+     127: iload         8
+     129: idiv
+     130: istore_1
+     131: goto          139
+     134: iload_1
+     135: iload         8
+     137: imul
+     138: istore_1
+     139: goto          149
+     142: aload         7
+     144: iconst_0
+     145: invokevirtual #61                 // Method java/lang/String.charAt:(I)C
+     148: istore_2
+     149: iinc          6, 1
+     152: goto          22
+     155: iload_1
+     156: ireturn
+
+  private static boolean stringIsInteger(java.lang.String);
+    Code:
+       0: aload_0
+       1: invokestatic  #56                 // Method java/lang/Integer.parseInt:(Ljava/lang/String;)I
+       4: pop
+       5: goto          11
+       8: astore_1
+       9: iconst_0
+      10: ireturn
+      11: iconst_1
+      12: ireturn
+    Exception table:
+       from    to  target type
+           0     5     8   Class java/lang/NumberFormatException
+}

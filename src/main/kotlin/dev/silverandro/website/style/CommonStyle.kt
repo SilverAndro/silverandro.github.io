@@ -62,9 +62,9 @@ object CommonStyle : StyleSheet() {
 
                 padding: 8px 10px 8px;
                 width: fit-content;
-                min-width: 45%;
+                min-width: 55%;
                 max-width: 100%;
-                overflow-x: scroll;
+                overflow: scroll;
                 
                 border: 5px solid #B9B5BC;
                 border-radius: 8px;

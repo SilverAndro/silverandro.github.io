@@ -127,10 +127,10 @@ object MainPage : Page() {
         li {
             _a("/" + post.path.removePrefix("/"), post.title)
             +" - published "
-            inlineCode { +post.publishDate.ymdString }
+            inlineCode(post.publishDate.ymdString)
             if (post.updateDate != null) {
                 +", updated "
-                inlineCode { +post.updateDate!!.ymdString }
+                inlineCode(post.updateDate!!.ymdString)
             }
         }
     }
