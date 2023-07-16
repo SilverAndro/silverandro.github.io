@@ -79,11 +79,11 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             +"it becomes very easy, especially with complex class generators, to accidentally use dots instead of slashes, add an extra "
             inlineCode("L"); +" to the start of a class name in a descriptor, and more."
             br
-            +"(the class file specification has a good section on these "
+            +"(the "
             a("https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-4.html#jvms-4.3", "_blank") {
-                +"here"
+                +"class file specification"
             }
-            +")"
+            +" has a good section on these)"
             br;br
 
             +"ok so, we can read data about these classes, but what if we want to modify it? well theres 2 major improvements we can make "

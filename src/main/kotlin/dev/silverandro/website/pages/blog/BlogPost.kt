@@ -30,11 +30,21 @@ abstract class BlogPost(val slug: String, val needsCodeHighlighting: Boolean = f
 
     override fun BODY.preBody() {
         h1("title") { +IntroToOW2Asm.title }
-        h5("title") { +"Published: ${publishDate.ymdString}" }
-        if (updateDate != null) {
-            h5(title) { +"Updated: ${updateDate!!.ymdString}" }
+        strong("title") {
+            style = "font-size: 16px;"
+            +"Published: ${publishDate.ymdString}"
         }
-        +description
+        br
+        if (updateDate != null) {
+            strong("title") {
+                +"Updated: ${updateDate!!.ymdString}"
+            }
+            br
+        }
+        p {
+            style = "margin: 18px 0 0;"
+            +description
+        }
         hr
     }
 
