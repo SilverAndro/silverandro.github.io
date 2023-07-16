@@ -20,7 +20,8 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             +" as it is focused on using ow2 asm. i recommend checking out the documentation and trying other parts yourself (either with"
             +" asm or a project like "
             _a("https://github.com/roscopeco/jasm", "jasm")
-            +")"
+            +"). ill be explaining some parts but i do expect you to have a basic understanding of jvm-as-a-stack-machine and some simple "
+            +"instructions."
 
             h1 { +"whats so special about ow2 asm?" }
             _a("https://asm.ow2.io/", "ow2 asm")
@@ -72,7 +73,7 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             +"some important things to note about this:"
             ul {
                 - "the class version isnt directly the java version"
-                - "to actually get any data about what a method takes or gives, you need to handle the descriptor"
+                - "to actually get any data about what a method takes or returns, you need to handle the descriptor"
                 li {  +"the \"class name\" is the "; i { +"fully qualified" }; +" name of the class, using slashes to denote the path/package" }
             }
             +"the format of descriptors and class names is important, asm will not verify them for you when modifying or generating classes. "
@@ -96,7 +97,7 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             +"only applying once. although it could be argued to be a feature, its "; i { +"technically" }; +" not desired behavior."
             br
             +"second change is very simple as well, we replace a weird \"attempt-and-catch\" with a proper check. much faster and "
-            +"easier to read! (no, java really doesn't have a built-in way of checking this, i looked, lmao)"
+            +"easier to read! (no, java really doesn't have a built-in way of checking this, i checked) "
 
             +"so, lets get to this! first off, lets see how asm represents the code of our methods by dumping "; inlineCode("calculateResult"); +"."
             codeBlock(Language.NONE, embedFile("tutorials/asm/calcResultInsn.txt"))
@@ -110,7 +111,7 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             codeBlock(Language.NONE, embedFile("tutorials/asm/javap_calc.txt"), 400)
 
             +"looking at this output, it seems like it makes the most sense to jump right between 138 and 139, so lets target that! "
-            +"remember that asm is going to add a lot of extra labels here, these arent going to line up to exact indices."
+            +"remember that asm is going to add a lot of extra labels here, so these arent going to line up to exact indices."
             br
             +"its kind of tricky to get an injection point like this, theres a few options here, like using labels to figure out the specific "
             inlineCode("JumpInsnNode"); +" that corresponds to the "; inlineCode("goto"); +" at 139, matching specific patterns of instructions, "

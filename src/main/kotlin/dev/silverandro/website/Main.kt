@@ -33,10 +33,11 @@ fun main(args: Array<String>) {
     )
 
     val resources = mapOf(
-        "favicon.ico" to "favicon.ico",
-        "site_image.png" to "site_image.png",
-        "highlight.min.js" to "script/highlight.js",
-        "tomorrow.min.css" to "style/code_tomorrow.css"
+        "meta/robots.txt" to "robots.txt",
+        "meta/favicon.ico" to "favicon.ico",
+        "meta/site_image.png" to "site_image.png",
+        "content/highlight.min.js" to "script/highlight.js",
+        "content/tomorrow.min.css" to "style/code_tomorrow.css"
     )
 
     val root = Path("web_output/").absolute()
