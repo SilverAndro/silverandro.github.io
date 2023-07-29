@@ -32,7 +32,7 @@ object MainPage : Page() {
                 article {
                     +"hi there! im silver [it/she], im a kotlin/jvm programmer who mostly makes minecraft mods for quilt."
                     br
-                    +"i dont have much here right now other than my blog though."
+                    +"i dont have much here right now other than my blog though (and a private s3 backed file host)."
                     br; br
                     +"if i have friend requests or dms disabled on discord, feel free to join my sever and request to dm from there."
                     br

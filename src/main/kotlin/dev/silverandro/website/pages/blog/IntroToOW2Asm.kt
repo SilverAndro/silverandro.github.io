@@ -43,8 +43,8 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
                 - "destroys control flow"
                 - "various other issues"
             }
-            +"so this tutorial will instead work in an procedural manner thanks to "; inlineCode("asm-tree")
-            +". youre welcome to use the visitor pattern yourself, but you wont find instructions here."
+            +"so this tutorial will instead work in an procedural manner thanks to the "; inlineCode("asm-tree")
+            +" library that ow2 also distributes. youre welcome to use the visitor pattern yourself, but you wont find instructions here."
 
             h2 { +"setting the stage" }
             +"the first few examples here are going to use this calculator code that ive intentionally left Not Great™."
@@ -65,14 +65,25 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
 
             h2 { +"reading some basic info from a class file" }
             +"to read a class file you need a "; inlineCode("ClassReader"); +" which can then export the read data to something else, "
-            +"such as your visitor or in this cases, a class node. after reading in the data, its just a matter of printing it out."
+            +"such as your visitor, or in this case, a "; inlineCode("ClassNode"); +", which is the root of the \"tree\" structure "
+            +"representing the class. we pass in "; inlineCode("0"); +" for the reader flags because we want to read everything. "
+            +"if you dont need certain information like method code or debug info, use one of the static fields on "; inlineCode("ClassReader"); +"."
+            br
+            +"(you can also have it rewrite the frames or standardize instructions but i personally haven't encountered a use for that)"
 
             codeBlock(Language.JAVA, embedFile("tutorials/asm/readAsmClass.txt"))
             codeBlock(Language.NONE, embedFile("tutorials/asm/readClassResult.txt"))
 
             +"some important things to note about this:"
             ul {
-                - "the class version isnt directly the java version"
+                li {
+                    +"the class version isnt directly the java version (see ";
+                    _a(
+                        "https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-4.html#jvms-4.1-200-B.2",
+                        "the class file version table"
+                    )
+                    +")"
+                }
                 - "to actually get any data about what a method takes or returns, you need to handle the descriptor"
                 li {  +"the \"class name\" is the "; i { +"fully qualified" }; +" name of the class, using slashes to denote the path/package" }
             }
@@ -99,9 +110,10 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             +"second change is very simple as well, we replace a weird \"attempt-and-catch\" with a proper check. much faster and "
             +"easier to read! (no, java really doesn't have a built-in way of checking this, i checked) "
 
+            br; br
             +"so, lets get to this! first off, lets see how asm represents the code of our methods by dumping "; inlineCode("calculateResult"); +"."
             codeBlock(Language.NONE, embedFile("tutorials/asm/calcResultInsn.txt"))
-            +"youll notice this isnt particularly usable at a glance. the only real information here is that "; i { +"everything" }
+            +"youll notice this isnt particularly usable at a glance. the only real information is that "; i { +"everything" }
             +" is an insn node here, even stuff that doesnt have an instruction. labels and line numbers are a notable part of this, "
             +"which is one of the things that asm does actually do for you. labels are the especially useful part here as you dont have to keep "
             +"track of offsets manually."
@@ -115,28 +127,106 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             br
             +"its kind of tricky to get an injection point like this, theres a few options here, like using labels to figure out the specific "
             inlineCode("JumpInsnNode"); +" that corresponds to the "; inlineCode("goto"); +" at 139, matching specific patterns of instructions, "
-            +"or my choice in this case, finding something unique and just working backwards. we can start at 145 and go back until we see a "
+            +"or my choice in this case, just working backwards. we can start at the last instruction and go back until we see a second"
             inlineCode("JumpInsnNode"); +" which will let us know we've reached the right location for our injection."
 
             codeBlock(Language.JAVA, """
-                AbstractInsnNode currentNode = null;
-                for (AbstractInsnNode insn : method.instructions) {
-                    if (insn instanceof MethodInsnNode methodInsn) {
-                        if (methodInsn.getOpcode() == Opcodes.INVOKEVIRTUAL && methodInsn.name.equals("charAt")) {
-                            currentNode = methodInsn;
-                            break;
-                        }
+                AbstractInsnNode targetNode = method.instructions.getLast();
+                int remaining = 2;
+                do {
+                    targetNode = targetNode.getPrevious(); // null check snipped
+                    if (targetNode instanceof JumpInsnNode) {
+                        remaining--;
                     }
-                }
-                
-                while (!(currentNode instanceof JumpInsnNode)) {
-                    currentNode = currentNode.getPrevious(); // null check snipped
-                }
-                currentNode = currentNode.getPrevious();
+                } while (remaining != 0);
+                targetNode = targetNode.getPrevious();
             """.trimIndent())
             +"now we just have to inject our instructions. we need 2 instructions here, one "; inlineCode("ldc"); +" to load the "
             +"null byte char, and a "; inlineCode("istore"); +" to actually save it to the variable. (in this case it happens to be "
             inlineCode("istore_2"); +", you can tell because thats the one used before the switch lookup)"
+            br
+            +"we can inject these instructions by building an "; inlineCode("InsnList"); +" and using "; inlineCode("method.instructions.insertBefore");
+            +". "; inlineCode("IntInsnNode"); +" is used for the store instruction to provide it the index to store to."
+            codeBlock(Language.JAVA, """
+                InsnList firstPatch = new InsnList();
+                firstPatch.add(new LdcInsnNode('\0'));
+                firstPatch.add(new IntInsnNode(Opcodes.ISTORE, 2));
+                method.instructions.insertBefore(targetNode, firstPatch);
+            """.trimIndent())
+
+            +"now we can dump the modified class file to disk and use a decompiler ("; _a("https://vineflower.org/", "vineflower"); +" in my case) "
+            +"to check if we were successful. lets take the easy way out and tell our "; inlineCode("ClassWriter"); +" to rewrite the frames and max stack "
+            +"for us. its not applicable in this case, but its a good general rule, especially when creating classes from scratch."
+            codeBlock(Language.JAVA, """
+                ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
+                classNode.accept(writer);
+
+                File outputFile = new File("calculator-modified.class");
+                FileOutputStream outputStream = new FileOutputStream(outputFile);
+                outputStream.write(writer.toByteArray());
+                outputStream.close();
+            """.trimIndent())
+            codeBlock(Language.JAVA, """
+                if (stringIsInteger(part)) {
+                    int value = Integer.parseInt(part);
+                    switch(currentOperation) {
+                        case '\u0000':
+                            current = value;
+                            break;
+                        case '*':
+                            current *= value;
+                            break;
+                        case '+':
+                            current += value;
+                            break;
+                        case '-':
+                            current -= value;
+                            break;
+                        case '/':
+                            current /= value;
+                    }
+
+                    currentOperation = 0;
+                } else {
+            """.trimIndent())
+            +"other than some decompiler artifacts (turning the null char to integer 0) thats the patch we wanted! and indeed if we run it "
+            +"the behavior now matches what it should given the change in logic, a string like "; inlineCode("+ 3 4 5"); +"just gives 5 now."
+            br
+            +"this is the basic chain for modifying classes with asm, although somewhat targeted, so the second patch here is pretty easy to deduce."
+            codeBlock(Language.JAVA, """
+                InsnList secondPatch = new InsnList();
+                secondPatch.add(new IntInsnNode(Opcodes.ALOAD, 0));
+                secondPatch.add(new LdcInsnNode("-?\\d+"));
+                secondPatch.add(
+                    new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "java/lang/String", "matches", "(Ljava/lang/String;)Z")
+                );
+                secondPatch.add(new InsnNode(Opcodes.IRETURN));
+                
+                method.instructions.clear();
+                method.instructions.insert(secondPatch);
+            """.trimIndent())
+            +"not too bad, just a few more instructions and a method invocation. If you try to run this however, it will crash!"
+            codeBlock(Language.NONE, "Cannot read field \"outgoingEdges\" because \"handlerRangeBlock\" is null")
+            +"this is because you need to clear the try catch blocks as well! if you dont, asm will try and construct the frames "
+            +"(like we told it to), try and match it up to the handler blocks, and whoops! that doesnt line up."
+            br
+            +"luckily, this is super easy to fix by just clearing the try catch blocks as well as the instructions."
+            codeBlock(Language.DIFF, """
+                 secondPatch.add(new InsnNode(Opcodes.IRETURN));
+
+                +method.tryCatchBlocks.clear();
+                 method.instructions.clear();
+            """.trimIndent())
+            +"and tada, not only cleaner but "; i { +"much" }; +" faster :D"
+            codeBlock(Language.JAVA, """
+                private static boolean stringIsInteger(String str) {
+                    return str.matches("-?\\d+");
+                }
+            """.trimIndent())
+
+            h2 { +"labels, how do they work?" }
+            +"so far these patches have been pretty simple, linear instruction sets, but what if we what to include a conditional or "
+            +"loop?"
         }
     }
 }

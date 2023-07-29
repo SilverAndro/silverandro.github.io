@@ -20,7 +20,6 @@ object AboutMePage : Page() {
         +"whoops! you found some unfinshed content, try again later?"
         ul {
             li { +"Github: "; _a("https://github.com/SilverAndro") }
-            li { +"Twitter: "; _a("https://twitter.com/SilverAndro") }
             li { +"Discord: "; inlineCode("mrs.silver.andro") }
             li { +"Discord Server: "; inlineCode("PZAunp345q") }
             li { +"Modrinth: "; _a("https://modrinth.com/user/SilverAndro") }
