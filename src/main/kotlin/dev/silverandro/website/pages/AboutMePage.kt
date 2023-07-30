@@ -24,7 +24,7 @@ object AboutMePage : Page() {
             li { +"Discord Server: "; inlineCode("PZAunp345q") }
             li { +"Modrinth: "; _a("https://modrinth.com/user/SilverAndro") }
             li { +"Curseforge: "; _a("https://curseforge.com/members/silverthelesbian/projects") }
-            li { +"Mastadon: "; inlineCode("silverandro@tech.lgbt"); +" (pending)" }
+            li { +"Mastadon: "; _a("https://tech.lgbt/@silverandro") }
             li { +"Email: "; email("NiAndromedae@proton.me")}
         }
     }

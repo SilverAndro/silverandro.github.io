@@ -17,6 +17,13 @@ object MainPage : Page() {
         return listOf(Style)
     }
 
+    override fun HEAD.head() {
+        link(
+            href="https://tech.lgbt/@silverandro",
+            rel = "me"
+        )
+    }
+
     override fun BODY.body() {
         div("opening") {
             h1 { +"welcome to my page! "; noWrap { +"\uD83D\uDC95\uD83C\uDFF3\uFE0F\u200D⚧\uFE0F" } }
