@@ -37,7 +37,9 @@ fun main(args: Array<String>) {
         "meta/favicon.ico" to "favicon.ico",
         "meta/site_image.png" to "site_image.png",
         "content/highlight.min.js" to "script/highlight.js",
-        "content/tomorrow.min.css" to "style/code_tomorrow.css"
+        "content/tomorrow.min.css" to "style/code_tomorrow.css",
+
+        "well_known/discord" to ".well-known/discord"
     )
 
     val root = Path("web_output/").absolute()
