@@ -39,7 +39,8 @@ fun main(args: Array<String>) {
         "content/highlight.min.js" to "script/highlight.js",
         "content/tomorrow.min.css" to "style/code_tomorrow.css",
 
-        "well_known/discord" to ".well-known/discord"
+        "well_known/discord" to ".well-known/discord",
+        "well_known/bsky" to ".well-known/atproto-did"
     )
 
     val root = Path("web_output/").absolute()
