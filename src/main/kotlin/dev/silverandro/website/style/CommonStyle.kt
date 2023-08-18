@@ -13,7 +13,7 @@ object CommonStyle : StyleSheet() {
             }
 
             a:link, a:visited {
-                color: #3FBFBF;
+                color: #36A1A1;
             }
 
             a:active {
