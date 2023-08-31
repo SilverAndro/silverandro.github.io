@@ -21,7 +21,7 @@ object AboutMePage : Page() {
         ul {
             li { +"Github: "; _a("https://github.com/SilverAndro") }
             li { +"Discord: "; inlineCode("mrs.silver.andro") }
-            li { +"Discord Server: "; inlineCode("PZAunp345q") }
+            li { +"Discord Server: "; _a("https://discord.gg/PZAunp345q") }
             li { +"Modrinth: "; _a("https://modrinth.com/user/SilverAndro") }
             li { +"Curseforge: "; _a("https://curseforge.com/members/silverthelesbian/projects") }
             li { +"Mastadon: "; _a("https://tech.lgbt/@silverandro") }
