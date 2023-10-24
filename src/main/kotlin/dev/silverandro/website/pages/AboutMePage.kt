@@ -17,7 +17,7 @@ object AboutMePage : Page() {
     }
 
     override fun BODY.body() {
-        +"whoops! you found some unfinshed content, try again later?"
+        +"whoops! you found some unfinished content, try again later?"
         ul {
             li { +"Github: "; _a("https://github.com/SilverAndro") }
             li { +"Discord: "; inlineCode("mrs.silver.andro") }

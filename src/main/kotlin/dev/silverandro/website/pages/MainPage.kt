@@ -55,6 +55,7 @@ object MainPage : Page() {
                 //blogEntry(IntroToOW2Asm)
             }
         }
+        button { +"dislike" }
     }
 
     object Style : StyleSheet() {
