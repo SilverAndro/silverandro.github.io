@@ -37,13 +37,16 @@ object MainPage : Page() {
             div {
                 id = "bio"
                 article {
-                    +"hi there! im silver [it/she], im a kotlin/jvm programmer who mostly makes minecraft mods for quilt."
+                    +"hi there! im silver [it/she], im a kotlin/jvm programmer who mostly makes minecraft mods for quilt "
+                    +"and has been slowly branching out into other projects."
                     br
-                    +"i dont have much here right now other than my blog though (and a private s3 backed file host)."
+                    +"i dont have much here right now other than my blog and "; _a("https://maven.silverandro.dev", "my personal maven"); +"."
                     br; br
                     +"if i have friend requests or dms disabled on discord, feel free to join my sever and request to dm from there."
                     br
                     +"check out "; _a("/about", "my about page"); +" for more info about me and contact info."
+                    br
+                    i { +"i promise ill publish blog posts someday" }
                 }
             }
         }
@@ -55,7 +58,6 @@ object MainPage : Page() {
                 //blogEntry(IntroToOW2Asm)
             }
         }
-        button { +"dislike" }
     }
 
     object Style : StyleSheet() {
