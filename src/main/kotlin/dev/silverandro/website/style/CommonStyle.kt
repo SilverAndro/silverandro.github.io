@@ -76,7 +76,6 @@ object CommonStyle : StyleSheet() {
             
             .split {
                 display: flex;
-                justify-content: center;
             }
         """.trimIndent()
     }
@@ -91,7 +90,6 @@ object CommonStyle : StyleSheet() {
         .split {
             flex-direction: column;
             align-items: center;
-            justify-content: center;
         }
     """.trimIndent()
 }

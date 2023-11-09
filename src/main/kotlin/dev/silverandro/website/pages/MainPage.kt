@@ -2,10 +2,7 @@ package dev.silverandro.website.pages
 
 import dev.silverandro.website.Page
 import dev.silverandro.website.StyleSheet
-import dev.silverandro.website.components._a
-import dev.silverandro.website.components.inlineCode
-import dev.silverandro.website.components.noWrap
-import dev.silverandro.website.components.split
+import dev.silverandro.website.components.*
 import dev.silverandro.website.pages.blog.BlogPost
 import dev.silverandro.website.util.px
 import dev.silverandro.website.util.ymdString
@@ -29,7 +26,7 @@ object MainPage : Page() {
         div("opening") {
             h1 { +"welcome to my page! "; noWrap { +"\uD83D\uDC95\uD83C\uDFF3\uFE0F\u200D⚧\uFE0F" } }
         }
-        split({
+        split(Justify.CENTER, {
             img("Silver's profile picture", "https://avatars.githubusercontent.com/SilverAndro?size=200") {
                 id = "profile_picture"
                 width = 200.px
@@ -51,7 +48,7 @@ object MainPage : Page() {
             }}
         )
         hr {  }
-        split({
+        split(Justify.SPACE_AROUND, {
             h2 { +"blog entries:" }
             div {
                 id = "blog-list"
@@ -60,9 +57,9 @@ object MainPage : Page() {
                 }
             }},
             {
+            id = "project-list"
             h2 { +"notable projects" }
             div {
-                id = "project-list"
                 ul {
                     projectEntry(
                         "s3 maven rust lambda", "https://github.com/SilverAndro/s3-maven-rust-lambda",
@@ -74,8 +71,7 @@ object MainPage : Page() {
                                 "way better and more dynamic)"
                     )
                 }
-            }
-            }
+            }}
         )
     }
 
