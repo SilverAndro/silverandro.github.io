@@ -51,13 +51,32 @@ object MainPage : Page() {
             }}
         )
         hr {  }
-        h2 { +"blog entries:" }
-        div {
-            id = "blog-list"
-            ul {
-                //blogEntry(IntroToOW2Asm)
+        split({
+            h2 { +"blog entries:" }
+            div {
+                id = "blog-list"
+                ul {
+                    //blogEntry(IntroToOW2Asm)
+                }
+            }},
+            {
+            h2 { +"notable projects" }
+            div {
+                id = "project-list"
+                ul {
+                    projectEntry(
+                        "s3 maven rust lambda", "https://github.com/SilverAndro/s3-maven-rust-lambda",
+                        "the aws lambda function that implements my maven"
+                    )
+                    projectEntry(
+                        "broadsword", "https://github.com/SilverAndro/broadsword",
+                        "a jvm class file remapper thats focused on speed rather than functionality (probably getting a rewrite soon-ish to be" +
+                                "way better and more dynamic)"
+                    )
+                }
             }
-        }
+            }
+        )
     }
 
     object Style : StyleSheet() {
@@ -129,6 +148,13 @@ object MainPage : Page() {
                 +", updated "
                 inlineCode(post.updateDate!!.ymdString)
             }
+        }
+    }
+
+    private fun UL.projectEntry(name: String, link: String, description: String) {
+        li {
+            _a(link, name)
+            +" - $description"
         }
     }
 }
