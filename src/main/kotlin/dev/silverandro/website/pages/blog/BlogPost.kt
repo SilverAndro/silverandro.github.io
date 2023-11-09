@@ -51,7 +51,7 @@ abstract class BlogPost(val slug: String, val needsCodeHighlighting: Boolean = f
     object Style : StyleSheet() {
         override val name = "blog_post"
 
-        override fun getStyleSheet(): String {
+        override fun getMain(): String {
             return """
                 body {
                     padding: 20px 0px 15px 20px;

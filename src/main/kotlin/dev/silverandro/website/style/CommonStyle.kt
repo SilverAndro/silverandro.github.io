@@ -5,7 +5,7 @@ import dev.silverandro.website.StyleSheet
 object CommonStyle : StyleSheet() {
     override val name = "common"
 
-    override fun getStyleSheet(): String {
+    override fun getMain(): String {
         return """
             html {
                 font-size: 18px;
@@ -74,12 +74,24 @@ object CommonStyle : StyleSheet() {
                 white-space: nowrap;
             }
             
-            /* Increase the amount of code on screen for better reading */
-            @media screen and (max-width: 700px) {
-                .code {
-                    font-size: 12px;
-                }
+            .split {
+                display: flex;
+                justify-content: center;
             }
         """.trimIndent()
     }
+
+    override fun getSmall() = """
+        .code {
+            font-size: 12px;
+        }
+    """.trimIndent()
+
+    override fun getMobile() = """
+        .split {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    """.trimIndent()
 }

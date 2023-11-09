@@ -8,7 +8,6 @@ abstract class Page {
     abstract val path: String
     open val title: String = "Silver's Silly Little Website"
     open val description = "Silver's silly site, full of awful web design and a maven"
-
     open fun styleSheets(): List<StyleSheet> {
         return mutableListOf<StyleSheet>(
             CommonStyle

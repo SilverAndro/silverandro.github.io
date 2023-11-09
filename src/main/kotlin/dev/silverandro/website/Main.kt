@@ -64,10 +64,11 @@ fun main(args: Array<String>) {
         output.parentFile.mkdirs()
         output.createNewFile()
 
-        val sheet = it.getStyleSheet()
+        val sheet = it.assemble()
         val minimized = sheet.lines()
             .filter { it.isNotBlank() }
             .joinToString(separator = "")
+            .replace(" 0px", " 0")
             .replace("  ", "")
             .replace(": ", ":")
             .replace(") ", ")")

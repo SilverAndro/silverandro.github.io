@@ -5,6 +5,7 @@ import dev.silverandro.website.StyleSheet
 import dev.silverandro.website.components._a
 import dev.silverandro.website.components.inlineCode
 import dev.silverandro.website.components.noWrap
+import dev.silverandro.website.components.split
 import dev.silverandro.website.pages.blog.BlogPost
 import dev.silverandro.website.util.px
 import dev.silverandro.website.util.ymdString
@@ -28,28 +29,27 @@ object MainPage : Page() {
         div("opening") {
             h1 { +"welcome to my page! "; noWrap { +"\uD83D\uDC95\uD83C\uDFF3\uFE0F\u200D⚧\uFE0F" } }
         }
-        div("showcase") {
-            div { img("Silver's profile picture", "https://avatars.githubusercontent.com/SilverAndro?size=200") {
+        split({
+            img("Silver's profile picture", "https://avatars.githubusercontent.com/SilverAndro?size=200") {
                 id = "profile_picture"
                 width = 200.px
                 height = 200.px
-            } }
-            div {
-                id = "bio"
-                article {
-                    +"hi there! im silver [it/she], im a kotlin/jvm programmer who mostly makes minecraft mods for quilt "
-                    +"and has been slowly branching out into other projects."
-                    br
-                    +"i dont have much here right now other than my blog and "; _a("https://maven.silverandro.dev", "my personal maven"); +"."
-                    br; br
-                    +"if i have friend requests or dms disabled on discord, feel free to join my sever and request to dm from there."
-                    br
-                    +"check out "; _a("/about", "my about page"); +" for more info about me and contact info."
-                    br
-                    i { +"i promise ill publish blog posts someday" }
-                }
-            }
-        }
+            }},
+            {
+            id = "bio"
+            article {
+                +"hi there! im silver [it/she], im a kotlin/jvm programmer who mostly makes minecraft mods for quilt "
+                +"and has been slowly branching out into other projects."
+                br
+                +"i dont have much here right now other than my blog and "; _a("https://maven.silverandro.dev", "my personal maven"); +"."
+                br; br
+                +"if i have friend requests or dms disabled on discord, feel free to join my sever and request to dm from there."
+                br
+                +"check out "; _a("/about", "my about page"); +" for more info about me and contact info."
+                br
+                i { +"i promise ill publish blog posts someday" }
+            }}
+        )
         hr {  }
         h2 { +"blog entries:" }
         div {
@@ -63,17 +63,12 @@ object MainPage : Page() {
     object Style : StyleSheet() {
         override val name = "main_page"
 
-        override fun getStyleSheet(): String {
+        override fun getMain(): String {
             return """
                 h1 {
-                    margin: 0 2px 2px 2px;
+                    margin: 0px 2px 2px 2px;
                     font-size: 40px;
                     text-align: center;
-                }
-
-                .showcase {
-                    display: flex;
-                    justify-content: center;
                 }
 
                 #profile_picture {
@@ -93,44 +88,36 @@ object MainPage : Page() {
                     display: flex;
                     align-items: center;
                 }
-
-                /* Shrink to recover a few characters of space */
-                @media screen and (max-width: 700px) {
-                    body {
-                        border-width: 0 0 0 16px;
-                    }
-
-                    #profile_picture {
-                        width: 160px;
-                    }
-                }
-
-                /* Shift to mobile layout */
-                @media screen and (max-width: 530px) {
-                    body {
-                        border-width: 0 0 0 8px;
-                    }
-
-                    h1 {
-                        font-size: 35px;
-                    }
-
-                    .showcase {
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                    }
-
-                    #profile_picture {
-                        width: 130px;
-                    }
-
-                    #bio {
-                        width: 80%;
-                    }
-                }
             """.trimIndent()
         }
+
+        override fun getSmall() = """
+            body {
+                border-width: 0px 0px 0px 16px;
+            }
+
+            #profile_picture {
+                width: 160px;
+            }
+        """.trimIndent()
+
+        override fun getMobile() = """
+            body {
+                border-width: 0px 0px 0px 8px;
+            }
+
+            h1 {
+                font-size: 35px;
+            }
+
+            #profile_picture {
+                width: 130px;
+            }
+
+            #bio {
+                width: 80%;
+            }
+        """.trimIndent()
     }
 
     private fun UL.blogEntry(post: BlogPost) {

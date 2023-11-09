@@ -25,14 +25,14 @@ object AboutMePage : Page() {
             li { +"Modrinth: "; _a("https://modrinth.com/user/SilverAndro") }
             li { +"Curseforge: "; _a("https://curseforge.com/members/silverthelesbian/projects") }
             li { +"Mastadon: "; _a("https://tech.lgbt/@silverandro") }
-            li { +"Email: "; email("NiAndromedae@proton.me")}
+            li { +"Email: "; email("silver@silverandro.dev")}
         }
     }
 
     object Style : StyleSheet() {
         override val name = "about_me"
 
-        override fun getStyleSheet(): String {
+        override fun getMain(): String {
             return ""
         }
     }
