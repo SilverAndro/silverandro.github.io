@@ -107,6 +107,10 @@ object MainPage : Page() {
                     display: flex;
                     align-items: center;
                 }
+                
+                #project-list {
+                    width: 50%;
+                }
             """.trimIndent()
         }
 
