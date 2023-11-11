@@ -9,9 +9,9 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
     override val title: String
         get() = "an (im)practical introduction to ow2 asm"
     override val description: String
-        get() = "an introduction to ow2 asm, with examples from my experience with the library"
+        get() = "an introduction to ow2 asm, with examples based on my experience with the library"
 
-    override val publishDate = LocalDate(2023, 7, 15)
+    override val publishDate = LocalDate(2023, 11, 10)
 
     override fun BODY.body() {
         div("content") {
@@ -27,16 +27,16 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             _a("https://asm.ow2.io/", "ow2 asm")
             +" (or just asm for the rest of this post) is \"an all purpose Java bytecode manipulation and analysis framework.\" "
             +"this means it can read class files, create classes from scratch, and write it all out to either be written to disk or loaded live."
-            br; br
+            br2
             +"The main reason to use asm is that its "
             i { +"fast" }
             +", outpacing many other libraries that also work on class files. This speed comes at a cost though, youre working a "
-            +"lot closer to the raw class file. asm, by and large, does not verify anything you do, and will happily output invalid class files "
-            +"(other than some cases that we'll get to later)."
+            +"lot closer to the raw class file. asm usually does not verify anything you do, and will happily output invalid "
+            +"class files (other than some cases that we'll get to later)."
 
             h2 { +"a warning about this post" }
             +"asm uses a visitor pattern basically everywhere, as its the expected way to interface with the library. "
-            +"however i "; strong { +"do not " }; +"use the visitor api when working with asm. i find it:"
+            +"however i "; strong { +"do not" }; +" use the visitor api when working with asm. i find it:"
             ul {
                 - "clunky"
                 - "hard to use"
@@ -45,6 +45,7 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             }
             +"so this tutorial will instead work in an procedural manner thanks to the "; inlineCode("asm-tree")
             +" library that ow2 also distributes. youre welcome to use the visitor pattern yourself, but you wont find instructions here."
+            +" it can be much faster depending on what youre doing, but it is just a visitor."
 
             h2 { +"setting the stage" }
             +"the first few examples here are going to use this calculator code that ive intentionally left Not Great™."
@@ -89,7 +90,8 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             }
             +"the format of descriptors and class names is important, asm will not verify them for you when modifying or generating classes. "
             +"it becomes very easy, especially with complex class generators, to accidentally use dots instead of slashes, add an extra "
-            inlineCode("L"); +" to the start of a class name in a descriptor, and more."
+            inlineCode("L"); +" to the start of a class name in a descriptor, and more. "
+            +"building your own utility methods is especially useful in this case, to avoid re-creating or hardcoding work."
             br
             +"(the "
             a("https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-4.html#jvms-4.3", "_blank") {
@@ -105,18 +107,22 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             +"lets make 2 patches to our class file here"
             codeBlock(Language.DIFF, embedFile("tutorials/asm/Calculator.patch"))
             +"the first change here is pretty simple, we switch the behavior of operations from changing the mode of the calculator to "
-            +"only applying once. although it could be argued to be a feature, its "; i { +"technically" }; +" not desired behavior."
-            br
-            +"second change is very simple as well, we replace a weird \"attempt-and-catch\" with a proper check. much faster and "
-            +"easier to read! (no, java really doesn't have a built-in way of checking this, i checked) "
+            +"only applying once. this means that an input like "; inlineCode("+ 2 3 4"); +" would just give us "; inlineCode("4");
+            +" instead of "; inlineCode("9"); +". although it could be argued to be a feature, its "; i { +"technically" };
+            +" not desired behavior, so were going to modify that."
+            br2
+            +"second change is very simple as well, we replace a weird \"attempt-and-catch\" with a proper check. much "
+            +"easier to read! (no, java really doesn't have a built-in way of doing this, i checked several times)"
+            +"this isnt the fasted method, but we can fix that later."
 
-            br; br
+            br2
             +"so, lets get to this! first off, lets see how asm represents the code of our methods by dumping "; inlineCode("calculateResult"); +"."
             codeBlock(Language.NONE, embedFile("tutorials/asm/calcResultInsn.txt"))
             +"youll notice this isnt particularly usable at a glance. the only real information is that "; i { +"everything" }
-            +" is an insn node here, even stuff that doesnt have an instruction. labels and line numbers are a notable part of this, "
+            +" is an "; inlineCode("AbstractInsnNode"); +", which we already knew thanks to \"having a type system\"";
+            +"labels and line numbers are a notable part of this, "
             +"which is one of the things that asm does actually do for you. labels are the especially useful part here as you dont have to keep "
-            +"track of offsets manually."
+            +"track of offsets manually when working on the bytecode."
             br
             +"anyways, to actually view the bytecode of a class, youre much better off using "; inlineCode("javap"); +" which is bundled with your JDK. "
             +"so, a quick "; inlineCode("javap -c -p Calculator.class"); +" later and...."
@@ -156,7 +162,9 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
 
             +"now we can dump the modified class file to disk and use a decompiler ("; _a("https://vineflower.org/", "vineflower"); +" in my case) "
             +"to check if we were successful. lets take the easy way out and tell our "; inlineCode("ClassWriter"); +" to rewrite the frames and max stack "
-            +"for us. its not applicable in this case, but its a good general rule, especially when creating classes from scratch."
+            +"for us. its not applicable in this case, but its a good general rule, especially when creating classes from scratch. "
+            +"this allows us to avoid having to manage all the gunk ourselves, although it can add some overhead. its also the source of several "
+            +"of the common but very obtuse errors in asm that will be covered later"
             codeBlock(Language.JAVA, """
                 ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
                 classNode.accept(writer);
@@ -191,7 +199,7 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             """.trimIndent())
             +"other than some decompiler artifacts (turning the null char to integer 0) thats the patch we wanted! and indeed if we run it "
             +"the behavior now matches what it should given the change in logic, a string like "; inlineCode("+ 3 4 5"); +"just gives 5 now."
-            br
+            br2
             +"this is the basic chain for modifying classes with asm, although somewhat targeted, so the second patch here is pretty easy to deduce."
             codeBlock(Language.JAVA, """
                 InsnList secondPatch = new InsnList();
@@ -205,9 +213,9 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
                 method.instructions.clear();
                 method.instructions.insert(secondPatch);
             """.trimIndent())
-            +"not too bad, just a few more instructions and a method invocation. If you try to run this however, it will crash!"
+            +"not too bad, just a few more instructions and a method invocation. however, if you try to run this however, it crashes when trying to build the new class file!"
             codeBlock(Language.NONE, "Cannot read field \"outgoingEdges\" because \"handlerRangeBlock\" is null")
-            +"this is because you need to clear the try catch blocks as well! if you dont, asm will try and construct the frames "
+            +"this is because you need to clear the try catch blocks as well. if you dont, asm will try and construct the frames "
             +"(like we told it to), try and match it up to the handler blocks, and whoops! that doesnt line up."
             br
             +"luckily, this is super easy to fix by just clearing the try catch blocks as well as the instructions."
@@ -217,7 +225,7 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
                 +method.tryCatchBlocks.clear();
                  method.instructions.clear();
             """.trimIndent())
-            +"and tada, not only cleaner but "; i { +"much" }; +" faster :D"
+            +"and tada, significantly cleaner when we look at the decompiled form. 🎉"
             codeBlock(Language.JAVA, """
                 private static boolean stringIsInteger(String str) {
                     return str.matches("-?\\d+");
@@ -226,7 +234,14 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
 
             h2 { +"labels, how do they work?" }
             +"so far these patches have been pretty simple, linear instruction sets, but what if we what to include a conditional or "
-            +"loop?"
+            +"loop? thats where labels come in (which im sure you'll be familar with if youve done any sort of assembly or even complex algorithms before)"
+            br
+            +"labels act as placeholders in the code. they provide a way for the absolute offsets of bytecode to be represented in a mutable, dynamic way "
+            +"that gets computed at assembly time. since asm inserts them into the instruction list, theyre very easy to modify and use. "
+            +"since were working in java, labels work based on just copying references where required, and then inserting the label into the instruction list."
+            br2
+            +"when setting up a new label, its often best to define all the labels you will need first, and with good names so you dont forget what they are. "
+            +"there is no way to tag or identify labels, so its up to you to watch which once youre jumping to."
         }
     }
 }

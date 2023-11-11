@@ -16,6 +16,8 @@ import kotlin.io.path.absolute
 fun main(args: Array<String>) {
     val debug = args.isNotEmpty() && args[0] == "debug"
 
+    G.debug = debug
+
     val allStyleSheets = arrayOf(
         CommonStyle,
         MainPage.Style,
@@ -121,7 +123,12 @@ fun main(args: Array<String>) {
                 // CSS
                 it.styleSheets().forEach {
                     if (!allStyleSheets.contains(it)) throw IllegalStateException("Attempting to use unknown stylesheet \"${it.name}\"")
-                    link("/style/${it.name}.css", "stylesheet")
+                    if (debug) {
+                        val pre = buildString { repeat(G.d(pagePath)) { append("../") } }
+                        link("${pre}style/${it.name}.css", "stylesheet")
+                    } else {
+                        link("/style/${it.name}.css", "stylesheet")
+                    }
                 }
 
                 // Anything else

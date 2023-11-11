@@ -43,6 +43,10 @@ object CommonStyle : StyleSheet() {
                 width: 90%;
                 margin: 10px 0 10px;
             }
+            
+            h1, h2 {
+                margin: 20px 0px 10px 0px;
+            }
 
             .inline_code {
                 display: inline-block;

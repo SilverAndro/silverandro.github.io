@@ -1,5 +1,6 @@
 package dev.silverandro.website.pages.blog
 
+import dev.silverandro.website.G
 import dev.silverandro.website.Page
 import dev.silverandro.website.StyleSheet
 import dev.silverandro.website.components.hr
@@ -20,10 +21,18 @@ abstract class BlogPost(val slug: String, val needsCodeHighlighting: Boolean = f
 
     override fun HEAD.head() {
         if (needsCodeHighlighting) {
-            link("/style/code_tomorrow.css", "stylesheet")
-            script(src = "/script/highlight.js") {
-                async = true
-                attributes["onload"] = "hljs.highlightAll()"
+            if (G.debug) {
+                link("../style/code_tomorrow.css", "stylesheet")
+                script(src = "../script/highlight.js") {
+                    async = true
+                    attributes["onload"] = "hljs.highlightAll()"
+                }
+            } else {
+                link("/style/code_tomorrow.css", "stylesheet")
+                script(src = "/script/highlight.js") {
+                    async = true
+                    attributes["onload"] = "hljs.highlightAll()"
+                }
             }
         }
     }

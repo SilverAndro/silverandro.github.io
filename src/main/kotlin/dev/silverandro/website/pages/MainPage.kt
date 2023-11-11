@@ -39,7 +39,7 @@ object MainPage : Page() {
                 +"and has been slowly branching out into other projects."
                 br
                 +"i dont have much here right now other than my blog and "; _a("https://maven.silverandro.dev", "my personal maven"); +"."
-                br; br
+                br2
                 +"if i have friend requests or dms disabled on discord, feel free to join my sever and request to dm from there."
                 br
                 +"check out "; _a("/about", "my about page"); +" for more info about me and contact info."
@@ -67,8 +67,8 @@ object MainPage : Page() {
                     )
                     projectEntry(
                         "broadsword", "https://github.com/SilverAndro/broadsword",
-                        "a jvm class file remapper thats focused on speed rather than functionality (probably getting a rewrite soon-ish to be" +
-                                "way better and more dynamic)"
+                        "a jvm class file remapper thats focused on speed rather than functionality (probably getting a rewrite soon-ish" +
+                                " to be way better and more dynamic)"
                     )
                 }
             }}
