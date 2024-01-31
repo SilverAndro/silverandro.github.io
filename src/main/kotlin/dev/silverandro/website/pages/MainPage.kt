@@ -3,6 +3,7 @@ package dev.silverandro.website.pages
 import dev.silverandro.website.Page
 import dev.silverandro.website.StyleSheet
 import dev.silverandro.website.components.*
+import dev.silverandro.website.pages.blog.AoTM
 import dev.silverandro.website.pages.blog.BlogPost
 import dev.silverandro.website.util.px
 import dev.silverandro.website.util.ymdString
@@ -54,6 +55,9 @@ object MainPage : Page() {
                 id = "blog-list"
                 ul {
                     //blogEntry(IntroToOW2Asm)
+                    //blogEntry(EvilBureaucracy)
+                    //blogEntry(SometimesIDropThings)
+                    blogEntry(AoTM)
                 }
             }},
             {

@@ -38,7 +38,7 @@ abstract class BlogPost(val slug: String, val needsCodeHighlighting: Boolean = f
     }
 
     override fun BODY.preBody() {
-        h1("title") { +IntroToOW2Asm.title }
+        h1("title") { +this@BlogPost.title }
         strong("title") {
             style = "font-size: 16px;"
             +"Published: ${publishDate.ymdString}"
@@ -71,7 +71,23 @@ abstract class BlogPost(val slug: String, val needsCodeHighlighting: Boolean = f
                 }
                 
                 .content {
+                    width: 60%;
+                }
+            """.trimIndent()
+        }
+
+        override fun getSmall(): String {
+            return """
+                .content {
                     width: 80%;
+                }
+            """.trimIndent()
+        }
+
+        override fun getMobile(): String {
+            return """
+                .content {
+                    width: 97%;
                 }
             """.trimIndent()
         }

@@ -50,7 +50,7 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             h2 { +"setting the stage" }
             +"the first few examples here are going to use this calculator code that ive intentionally left Not Great™."
             br
-            codeBlock(Language.JAVA, embedFile("tutorials/asm/Calculator.java"), 400)
+            codeBlock(Language.JAVA, embedFile("blog/asm/Calculator.java"), 400)
 
             +"this works pretty well, putting in a simple calculation gives us the correct result"
             codeBlock(Language.NONE, """
@@ -72,13 +72,13 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             br
             +"(you can also have it rewrite the frames or standardize instructions but i personally haven't encountered a use for that)"
 
-            codeBlock(Language.JAVA, embedFile("tutorials/asm/readAsmClass.txt"))
-            codeBlock(Language.NONE, embedFile("tutorials/asm/readClassResult.txt"))
+            codeBlock(Language.JAVA, embedFile("blog/asm/readAsmClass.txt"))
+            codeBlock(Language.NONE, embedFile("blog/asm/readClassResult.txt"))
 
             +"some important things to note about this:"
             ul {
                 li {
-                    +"the class version isnt directly the java version (see ";
+                    +"the class version isnt directly the java version (see "
                     _a(
                         "https://docs.oracle.com/javase/specs/jvms/se20/html/jvms-4.html#jvms-4.1-200-B.2",
                         "the class file version table"
@@ -105,10 +105,10 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
 
             h2 { +"modifying our class with asm (and how code is represented)" }
             +"lets make 2 patches to our class file here"
-            codeBlock(Language.DIFF, embedFile("tutorials/asm/Calculator.patch"))
+            codeBlock(Language.DIFF, embedFile("blog/asm/Calculator.patch"))
             +"the first change here is pretty simple, we switch the behavior of operations from changing the mode of the calculator to "
-            +"only applying once. this means that an input like "; inlineCode("+ 2 3 4"); +" would just give us "; inlineCode("4");
-            +" instead of "; inlineCode("9"); +". although it could be argued to be a feature, its "; i { +"technically" };
+            +"only applying once. this means that an input like "; inlineCode("+ 2 3 4"); +" would just give us "; inlineCode("4")
+            +" instead of "; inlineCode("9"); +". although it could be argued to be a feature, its "; i { +"technically" }
             +" not desired behavior, so were going to modify that."
             br2
             +"second change is very simple as well, we replace a weird \"attempt-and-catch\" with a proper check. much "
@@ -117,16 +117,16 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
 
             br2
             +"so, lets get to this! first off, lets see how asm represents the code of our methods by dumping "; inlineCode("calculateResult"); +"."
-            codeBlock(Language.NONE, embedFile("tutorials/asm/calcResultInsn.txt"))
+            codeBlock(Language.NONE, embedFile("blog/asm/calcResultInsn.txt"))
             +"youll notice this isnt particularly usable at a glance. the only real information is that "; i { +"everything" }
-            +" is an "; inlineCode("AbstractInsnNode"); +", which we already knew thanks to \"having a type system\"";
+            +" is an "; inlineCode("AbstractInsnNode"); +", which we already knew thanks to \"having a type system\""
             +"labels and line numbers are a notable part of this, "
             +"which is one of the things that asm does actually do for you. labels are the especially useful part here as you dont have to keep "
             +"track of offsets manually when working on the bytecode."
             br
             +"anyways, to actually view the bytecode of a class, youre much better off using "; inlineCode("javap"); +" which is bundled with your JDK. "
             +"so, a quick "; inlineCode("javap -c -p Calculator.class"); +" later and...."
-            codeBlock(Language.NONE, embedFile("tutorials/asm/javap_calc.txt"), 400)
+            codeBlock(Language.NONE, embedFile("blog/asm/javap_calc.txt"), 400)
 
             +"looking at this output, it seems like it makes the most sense to jump right between 138 and 139, so lets target that! "
             +"remember that asm is going to add a lot of extra labels here, so these arent going to line up to exact indices."
@@ -151,7 +151,7 @@ object IntroToOW2Asm : BlogPost("an-intro-to-ow2-asm", true) {
             +"null byte char, and a "; inlineCode("istore"); +" to actually save it to the variable. (in this case it happens to be "
             inlineCode("istore_2"); +", you can tell because thats the one used before the switch lookup)"
             br
-            +"we can inject these instructions by building an "; inlineCode("InsnList"); +" and using "; inlineCode("method.instructions.insertBefore");
+            +"we can inject these instructions by building an "; inlineCode("InsnList"); +" and using "; inlineCode("method.instructions.insertBefore")
             +". "; inlineCode("IntInsnNode"); +" is used for the store instruction to provide it the index to store to."
             codeBlock(Language.JAVA, """
                 InsnList firstPatch = new InsnList();
