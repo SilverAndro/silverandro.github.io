@@ -36,7 +36,7 @@ object MainPage : Page() {
             {
             id = "bio"
             article {
-                +"hi there! im silver [it/she], im a kotlin/jvm programmer who mostly makes minecraft mods for quilt "
+                +"hi there! im silver (pronouns: she/her), im a kotlin/jvm programmer who used to do minecraft modding "
                 +"and has been slowly branching out into other projects."
                 br
                 +"i dont have much here right now other than my blog and "; _a("https://maven.silverandro.dev", "my personal maven"); +"."
@@ -62,17 +62,20 @@ object MainPage : Page() {
             }},
             {
             id = "project-list"
-            h2 { +"notable projects" }
+            h2 { +"notable projects:" }
             div {
                 ul {
+                    projectEntry(
+                        "This Website!", "https://github.com/SilverAndro/silverandro.github.io",
+                        "built from the ground up using github pages and a custom static site assembler."
+                    )
                     projectEntry(
                         "s3 maven rust lambda", "https://github.com/SilverAndro/s3-maven-rust-lambda",
                         "the aws lambda function that implements my maven"
                     )
                     projectEntry(
                         "broadsword", "https://github.com/SilverAndro/broadsword",
-                        "a jvm class file remapper thats focused on speed rather than functionality (probably getting a rewrite soon-ish" +
-                                " to be way better and more dynamic)"
+                        "a jvm class file remapper thats focused on speed rather than functionality (probably getting a rewrite soon)"
                     )
                 }
             }}

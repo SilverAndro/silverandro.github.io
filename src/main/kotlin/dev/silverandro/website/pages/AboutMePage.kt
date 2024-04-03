@@ -6,10 +6,7 @@ import dev.silverandro.website.components._a
 import dev.silverandro.website.components.br2
 import dev.silverandro.website.components.email
 import dev.silverandro.website.components.inlineCode
-import kotlinx.html.BODY
-import kotlinx.html.h1
-import kotlinx.html.li
-import kotlinx.html.ul
+import kotlinx.html.*
 
 object AboutMePage : Page() {
     override val path = "about"
@@ -22,6 +19,8 @@ object AboutMePage : Page() {
         h1 { +"Contact and Social Media" }
         +"Email is usually the best way to contact me, however discord is available for more informal discussions or support "
         +"with my projects."
+        br
+        +"I am in the EST time zone so expect responses around mid-later day then."
         br2;
         +"Contact:"
         ul {
