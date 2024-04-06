@@ -25,7 +25,7 @@ object MainPage : Page() {
 
     override fun BODY.body() {
         div("opening") {
-            h1 { +"welcome to my page! "; noWrap { +"\uD83D\uDC95\uD83C\uDFF3\uFE0F\u200D⚧\uFE0F" } }
+            h1 { +"welcome to my page! "; noWrap { +"\uD83D\uDC95" } }
         }
         split(Justify.CENTER, {
             img("Silver's profile picture", "https://avatars.githubusercontent.com/SilverAndro?size=200") {
