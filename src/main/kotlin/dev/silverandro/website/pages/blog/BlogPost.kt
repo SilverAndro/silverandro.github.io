@@ -70,6 +70,14 @@ abstract class BlogPost(val slug: String, val needsCodeHighlighting: Boolean = f
                     margin: 0px 0px 10px 0px;
                 }
                 
+                h2 {
+                    margin: 28px 0 10px 0;
+                }
+                
+                h3 {
+                    margin: 20px 0 10px 0;
+                }
+                
                 .content {
                     width: 60%;
                 }
