@@ -118,20 +118,12 @@ object MainPage : Page() {
         }
 
         override fun getSmall() = """
-            body {
-                border-width: 0px 0px 0px 16px;
-            }
-
             #profile_picture {
                 width: 160px;
             }
         """.trimIndent()
 
         override fun getMobile() = """
-            body {
-                border-width: 0px 0px 0px 8px;
-            }
-
             h1 {
                 font-size: 35px;
             }

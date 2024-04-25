@@ -88,12 +88,20 @@ object CommonStyle : StyleSheet() {
         .code {
             font-size: 12px;
         }
+        
+        body {
+            border-width: 0px 0px 0px 16px;
+        }
     """.trimIndent()
 
     override fun getMobile() = """
         .split {
             flex-direction: column;
             align-items: center;
+        }
+        
+        body {
+            border-width: 0px 0px 0px 8px;
         }
     """.trimIndent()
 }
