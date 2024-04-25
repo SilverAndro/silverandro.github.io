@@ -16,5 +16,6 @@ inline fun FlowContent.split(justify: Justify, crossinline leftSide: DIV.() -> U
 enum class Justify(val css: String) {
     CENTER("center"),
     SPACE_BETWEEN("space-between"),
-    SPACE_AROUND("space-around")
+    SPACE_AROUND("space-around"),
+    SPACE_EVENLY("space-evenly")
 }

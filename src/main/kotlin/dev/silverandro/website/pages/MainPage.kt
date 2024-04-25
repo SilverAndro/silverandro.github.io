@@ -49,11 +49,10 @@ object MainPage : Page() {
             }}
         )
         hr {  }
-        split(Justify.SPACE_AROUND, {
+        split(Justify.SPACE_EVENLY, {
             id = "blog-list"
             h2 { +"blog entries:" }
             div {
-                id = "blog-list"
                 ul {
                     //blogEntry(IntroToOW2Asm)
                     //blogEntry(EvilBureaucracy)
@@ -112,13 +111,8 @@ object MainPage : Page() {
                     align-items: center;
                 }
                 
-                #blog-list {
-                    width: 40%;
-                }
-                
-                #project-list {
-                    width: 50%;
-                    margin-right: 20px;
+                #blog-list, #project-list {
+                    padding-right: 20px;
                 }
             """.trimIndent()
         }
@@ -130,15 +124,6 @@ object MainPage : Page() {
 
             #profile_picture {
                 width: 160px;
-            }
-            
-            #blog-list {
-                width: 90%;
-            }
-            
-            #project-list {
-                width: 90%;
-                margin-right: 0px;
             }
         """.trimIndent()
 
