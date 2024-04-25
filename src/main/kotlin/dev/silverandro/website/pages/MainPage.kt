@@ -50,6 +50,7 @@ object MainPage : Page() {
         )
         hr {  }
         split(Justify.SPACE_AROUND, {
+            id = "blog-list"
             h2 { +"blog entries:" }
             div {
                 id = "blog-list"
@@ -111,8 +112,13 @@ object MainPage : Page() {
                     align-items: center;
                 }
                 
+                #blog-list {
+                    width: 40%;
+                }
+                
                 #project-list {
                     width: 50%;
+                    margin-right: 20px;
                 }
             """.trimIndent()
         }
@@ -124,6 +130,15 @@ object MainPage : Page() {
 
             #profile_picture {
                 width: 160px;
+            }
+            
+            #blog-list {
+                width: 90%;
+            }
+            
+            #project-list {
+                width: 90%;
+                margin-right: 0px;
             }
         """.trimIndent()
 
