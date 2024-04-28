@@ -79,7 +79,8 @@ abstract class BlogPost(val slug: String, val needsCodeHighlighting: Boolean = f
                 }
                 
                 .content {
-                    width: 60%;
+                    width: 90%;
+                    max-width: 55em;
                 }
             """.trimIndent()
         }
