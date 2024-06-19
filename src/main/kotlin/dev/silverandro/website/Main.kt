@@ -104,7 +104,11 @@ fun main(args: Array<String>) {
 
                 // Meta properties
                 metaProperty("og:title", it.title)
-                metaProperty("og:url", "https://www.silverandro.dev/$pagePath")
+                if (pagePath != "index") {
+                    metaProperty("og:url", "https://www.silverandro.dev/$pagePath")
+                } else {
+                    metaProperty("og:url", "https://www.silverandro.dev/")
+                }
                 metaProperty("og:image", "https://www.silverandro.dev/site_image.png")
                 metaProperty("og:description", it.description)
                 meta("description", it.description)
