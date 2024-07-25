@@ -33,7 +33,8 @@ fun main(args: Array<String>) {
         IntroToOW2Asm,
         EvilBureaucracy,
         SometimesIDropThings,
-        AoTM
+        AoTM,
+        ShovelSoFarChasm,
     )
 
     val resources = mapOf(

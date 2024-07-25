@@ -5,6 +5,7 @@ import dev.silverandro.website.StyleSheet
 import dev.silverandro.website.components.*
 import dev.silverandro.website.pages.blog.AoTM
 import dev.silverandro.website.pages.blog.BlogPost
+import dev.silverandro.website.pages.blog.ShovelSoFarChasm
 import dev.silverandro.website.util.px
 import dev.silverandro.website.util.ymdString
 import kotlinx.html.*
@@ -57,6 +58,7 @@ object MainPage : Page() {
                     //blogEntry(IntroToOW2Asm)
                     //blogEntry(EvilBureaucracy)
                     //blogEntry(SometimesIDropThings)
+                    blogEntry(ShovelSoFarChasm)
                     blogEntry(AoTM)
                 }
             }},
