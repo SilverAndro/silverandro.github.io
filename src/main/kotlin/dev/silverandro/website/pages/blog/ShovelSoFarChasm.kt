@@ -7,7 +7,7 @@ import kotlinx.html.*
 object ShovelSoFarChasm : BlogPost("a-shovel-will-only-get-you-so-deep") {
     override val title = "A Shovel Will Only Get You So Deep"
     override val description = "An argument that the current CHASM architecture is fundamentally broken"
-    override val publishDate = LocalDate(2024, 7, 24)
+    override val publishDate = LocalDate(2024, 7, 25)
 
     override fun BODY.body() {
         div("content") {
@@ -30,7 +30,7 @@ object ShovelSoFarChasm : BlogPost("a-shovel-will-only-get-you-so-deep") {
             }
             +", however the current architecture fails at this, and seems to have been designed without a thorough exploration of "
             +"how and why transformation compatibility fails. These issues are fundamental to the 2 pass locking system, "
-            +"and, I believe, makes the system a proper one to achieve its goals."
+            +"and, I believe, makes the system a improper one to achieve its goals."
 
             h2 { +"Intent, Intent, Intent" }
             +"I believe one of the biggest mistakes made while developing CHASM was failing to consider how the \"intent\" of any transformation should "
