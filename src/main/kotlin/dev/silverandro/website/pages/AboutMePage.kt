@@ -27,12 +27,11 @@ object AboutMePage : Page() {
             li { +"Email: "; email("me@silverandro.dev")}
             li { +"Github: "; _a("https://github.com/SilverAndro") }
             li { +"Discord: "; inlineCode("mrs.silver.andro") }
-            li { +"Discord Server: "; _a("https://discord.gg/PZAunp345q") }
         }
         +"Social media:"
         ul {
             li { +"Tumblr: "; _a("https://www.tumblr.com/blog/silverandro")}
-            li { +"Mastadon: "; _a("https://tech.lgbt/@silverandro") }
+            li { +"Discord Server: "; _a("https://discord.gg/PZAunp345q") }
         }
         +"Mods:"
         ul {
