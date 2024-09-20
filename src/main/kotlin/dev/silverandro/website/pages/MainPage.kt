@@ -5,6 +5,7 @@ import dev.silverandro.website.StyleSheet
 import dev.silverandro.website.components.*
 import dev.silverandro.website.pages.blog.AoTM
 import dev.silverandro.website.pages.blog.BlogPost
+import dev.silverandro.website.pages.blog.QuiltRetrospective
 import dev.silverandro.website.pages.blog.ShovelSoFarChasm
 import dev.silverandro.website.util.px
 import dev.silverandro.website.util.ymdString
@@ -55,9 +56,7 @@ object MainPage : Page() {
             h2 { +"blog entries:" }
             div {
                 ul {
-                    //blogEntry(IntroToOW2Asm)
-                    //blogEntry(EvilBureaucracy)
-                    //blogEntry(SometimesIDropThings)
+                    blogEntry(QuiltRetrospective)
                     blogEntry(ShovelSoFarChasm)
                     blogEntry(AoTM)
                 }

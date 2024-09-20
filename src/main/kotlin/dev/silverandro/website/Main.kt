@@ -31,10 +31,9 @@ fun main(args: Array<String>) {
 
         // Blog Posts
         IntroToOW2Asm,
-        EvilBureaucracy,
-        SometimesIDropThings,
         AoTM,
         ShovelSoFarChasm,
+        QuiltRetrospective,
     )
 
     val resources = mapOf(
