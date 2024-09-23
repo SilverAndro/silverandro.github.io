@@ -71,8 +71,12 @@ object MainPage : Page() {
                         "built from the ground up using github pages and a custom static site assembler."
                     )
                     projectEntry(
+                        "maven lambda", "https://github.com/SilverAndro/maven-lambda",
+                        "aws lambda for my maven, rewritten from rust version"
+                    )
+                    projectEntry(
                         "s3 maven rust lambda", "https://github.com/SilverAndro/s3-maven-rust-lambda",
-                        "the aws lambda function that implements my maven"
+                        "the aws lambda function that implemented my old maven (no longer compiles and is no longer maintained)"
                     )
                     projectEntry(
                         "broadsword", "https://github.com/SilverAndro/broadsword",
