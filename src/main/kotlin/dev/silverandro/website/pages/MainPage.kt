@@ -71,6 +71,10 @@ object MainPage : Page() {
                         "built from the ground up using github pages and a custom static site assembler."
                     )
                     projectEntry(
+                        "link shortener", "https://github.com/SilverAndro/linkshortener",
+                        "small aws lambda that provides a link shortener"
+                    )
+                    projectEntry(
                         "maven lambda", "https://github.com/SilverAndro/maven-lambda",
                         "aws lambda for my maven, rewritten from rust version"
                     )
