@@ -31,7 +31,7 @@ object AboutMePage : Page() {
         +"Social media:"
         ul {
             li { +"BlueSky: "; _a("https://bsky.app/profile/silverandro.dev")}
-            li { +"Tumblr: "; _a("https://www.tumblr.com/blog/silverandro")}
+            li { +"Tumblr: "; _a("https://www.tumblr.com/blog/reducto-ad-argentum")}
             li { +"Discord Server: "; _a("https://discord.gg/PZAunp345q")}
         }
         +"Mods:"
