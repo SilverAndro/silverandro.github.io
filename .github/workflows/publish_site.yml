@@ -22,14 +22,14 @@ jobs:
 
       - run: chmod +x ./gradlew
       - name: Build the assembler and create the site
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/actions/setup-gradle@v3
         with:
-            arguments: build assembleSite
-        
+          arguments: build assembleSite
+
       - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v1.0.8
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./web_output
-        
+
       - name: Deploy GitHub Pages site
-        uses: actions/deploy-pages@v2.0.2
+        uses: actions/deploy-pages@v4
