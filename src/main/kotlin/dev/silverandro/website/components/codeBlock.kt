@@ -9,7 +9,9 @@ enum class Language(val id: String) {
     NONE("nohighlight"),
     JAVA("language-java"),
     KOTLIN("language-kotlin"),
-    DIFF("language-diff")
+    DIFF("language-diff"),
+    GRADE("language-gradle"),
+    JSON("language-json"),
 }
 
 fun FlowContent.codeBlock(language: Language, content: String, restrictHeight: Int = Int.MAX_VALUE) {

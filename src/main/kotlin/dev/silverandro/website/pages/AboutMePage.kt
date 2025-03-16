@@ -38,6 +38,10 @@ object AboutMePage : Page() {
         ul {
             li { +"Modrinth: "; _a("https://modrinth.com/user/SilverAndro") }
         }
+        +"My wonderful girlfriend who is available to hire for video editing work:"
+        ul {
+            li { + "Website: "; _a("https://kizuati.com") }
+        }
     }
 
     object Style : StyleSheet() {

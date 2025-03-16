@@ -34,6 +34,7 @@ fun main(args: Array<String>) {
         AoTM,
         ShovelSoFarChasm,
         QuiltRetrospective,
+        YouDontNeedJWT,
     )
 
     val resources = mapOf(
