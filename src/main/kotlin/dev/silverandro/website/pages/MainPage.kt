@@ -56,7 +56,6 @@ object MainPage : Page() {
             h2 { +"blog entries:" }
             div {
                 ul {
-                    blogEntry(QuiltRetrospective)
                     blogEntry(ShovelSoFarChasm)
                     blogEntry(AoTM)
                 }
